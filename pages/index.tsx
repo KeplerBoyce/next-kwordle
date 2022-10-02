@@ -9,8 +9,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="text-red-500">
+      <main className="container">
+        <h1 className="text-3xl text-red-500 text-center">
           Tailwind test
         </h1>
       </main>
