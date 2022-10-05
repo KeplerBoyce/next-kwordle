@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .grid-3-shrink-center {
+        grid-auto-columns: 1fr min-content 1fr;
+    }
+}

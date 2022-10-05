@@ -9,14 +9,21 @@ export default async (req: any, res: any) => {
             data: {
                 users: {
                     connect: {
-                        id: data.userid
-                    }
-                }
+                        id: data.userId
+                    },
+                },
             },
         });
-        res.status(200).json({ success: true, id: room.id, message: "Successfully created room" });
+        res.status(200).json({
+            success: true,
+            id: room.id,
+            message: "Successfully created room",
+        });
     } catch (err) {
         console.log(err);
-        res.json({ success: false, message: "Error occured while creating room" });
+        res.json({
+            success: false,
+            message: "Error occured while creating room",
+        });
     }
 };
