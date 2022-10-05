@@ -3,12 +3,14 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import InputGroup from '../components/InputGroup'
 import axios from 'axios';
+import Popup from '../components/Popup';
 
 export default function Home() {
     const router = useRouter();
     const [username, setUsername] = useState("");
     const [roomCode, setRoomCode] = useState("");
     const [err, setErr] = useState("");
+    const [showErr, setShowErr] = useState(false);
 
     const join = async() => {
         if (!username || !roomCode) return;
@@ -17,6 +19,7 @@ export default function Home() {
         });
         if (!user.data.success) {
             setErr(user.data.message);
+            setShowErr(true);
             return;
         }
         const room = await axios.post("/api/addUserToRoom", {
@@ -25,6 +28,7 @@ export default function Home() {
         });
         if (!room.data.success) {
             setErr(room.data.message);
+            setShowErr(true);
             return;
         }
         router.push({
@@ -39,6 +43,7 @@ export default function Home() {
         });
         if (!user.data.success) {
             setErr(user.data.message);
+            setShowErr(true);
             return;
         }
         const room = await axios.post("/api/createRoom", {
@@ -46,6 +51,7 @@ export default function Home() {
         });
         if (!room.data.success) {
             setErr(room.data.message);
+            setShowErr(true);
             return;
         }
         router.push({
@@ -89,6 +95,15 @@ export default function Home() {
                     </button>
                 </div>
             </main>
+            <div className="absolute bottom-4 left-0 w-full flex justify-center">
+                <Popup
+                    className="bg-red-500 px-4 py-2 rounded-lg text-white"
+                    showing={showErr}
+                    hide={() => setShowErr(false)}
+                    message={err}
+                    time={2000}
+                />
+            </div>
         </div>
     )
 }
