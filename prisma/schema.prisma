@@ -6,3 +6,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id     Int     @id @default(autoincrement())
+  name   String
+  room   Room?   @relation(fields: [roomId], references: [id])
+  roomId String?
+}
+
+model Room {
+  id    String @id @default(cuid())
+  users User[]
+}
